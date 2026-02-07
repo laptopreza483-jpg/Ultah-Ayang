@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hadiah Untuk Ti ❤️</title>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    text-align: center;
+    background: linear-gradient(to bottom, #1a1a1a, #2a2416);
+    color: #ffd700;
+    overflow-x: hidden;
+}
+
+/* HALAMAN KADO */
+#giftPage {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 10;
+}
+
+.gift {
+    font-size: 120px;
+    cursor: pointer;
+    animation: bounce 1.5s infinite;
+    transition: transform 0.3s ease;
+}
+
+.gift:hover {
+    transform: scale(1.1);
+}
+
+@keyframes bounce {
+    0% {transform: translateY(0);}
+    50% {transform: translateY(-15px);}
+    100% {transform: translateY(0);}
+}
+
+/* HALAMAN UTAMA */
+#content {
+    display: none;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* HALAMAN KEMBANG API */
+#fireworksPage {
+    display: none;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 5;
+}
+
+/* HAPPY BIRTHDAY */
+#happyBirthdayPage {
+    display: none;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    animation: fadeIn 0.8s ease;
+}
+
+#happyBirthdayText {
+    font-size: 80px;
+    font-weight: bold;
+    color: #ffd700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    animation: scaleIn 0.8s ease;
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@keyframes scaleIn {
+    from {transform: scale(0.5); opacity: 0;}
+    to {transform: scale(1); opacity: 1;}
+}
+
+/* FOTO KENANGAN */
+#memoriesPage {
+    display: none;
+    padding: 40px 20px;
+    min-height: 100vh;
+}
+
+#memoriesPage h2 {
+    font-size: 40px;
+    margin-bottom: 40px;
+    color: #ffd700;
+}
+
+.memories-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+    position: relative;
+    padding-top: 60px;
+}
+
+.memories-container::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: -50px;
+    right: -50px;
+    height: 2px;
+    background: linear-gradient(90deg, #8B7355, #A0826D, #8B7355);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    z-index: 0;
+}
+
+.memory-item {
+    width: 100%;
+    opacity: 0;
+    animation: slideUp 0.8s ease forwards;
+    perspective: 1000px;
+    position: relative;
+    padding: 12px;
+    padding-top: 32px;
+    background: #f5e6d3;
+    border-radius: 2px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    transform: rotate(-2deg);
+    z-index: 1;
+}
+
+.memory-item::before {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 24px;
+    background: linear-gradient(to bottom, #D44D4D 0%, #C43F3F 50%, #8B2F2F 100%);
+    border-radius: 0 0 4px 4px;
+    box-shadow: 
+        inset -1px 0 2px rgba(255, 255, 255, 0.3),
+        inset 1px 0 2px rgba(0, 0, 0, 0.3),
+        0 3px 8px rgba(0, 0, 0, 0.4);
+    z-index: 10;
+}
+
+.memory-item::before::after {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 6px;
+    background: #8B2F2F;
+}
+
+.memory-item:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.memory-item:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+.memory-item:nth-child(4) {
+    animation-delay: 0.6s;
+}
+
+.memory-item:nth-child(5) {
+    animation-delay: 0.8s;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.memory-img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 1px;
+    background: #f5e6d3;
+    transition: transform 0.3s ease;
+    position: relative;
+    display: block;
+}
+
+.memory-item:nth-child(even) {
+    transform: rotate(2deg);
+}
+
+.memory-img::before {
+    display: none;
+}
+
+.memory-img::after {
+    display: none;
+}
+
+.memory-img:hover {
+    transform: scale(1.02);
+}
+
+.memory-item:hover {
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+}
+
+.memory-text {
+    margin-top: 15px;
+    font-size: 16px;
+    color: #e8d5b7;
+    font-style: italic;
+}
+
+/* MAKE A WISH */
+#wishPage {
+    display: none;
+    height: 100vh;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#wishPage h2 {
+    font-size: 50px;
+    margin-bottom: 40px;
+    color: #ffd700;
+    animation: fadeIn 0.8s ease;
+}
+
+.cake-container {
+    position: relative;
+    margin: 30px 0;
+}
+
+.cake {
+    font-size: 200px;
+    animation: cakeBounce 2s infinite;
+}
+
+@keyframes cakeBounce {
+    0%, 100% {transform: translateY(0);}
+    50% {transform: translateY(-20px);}
+}
+
+.candles {
+    position: absolute;
+    top: -80px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.candle {
+    font-size: 50px;
+    animation: candleFlame 0.6s infinite;
+}
+
+@keyframes candleFlame {
+    0%, 100% {transform: scale(1) translateY(0);}
+    50% {transform: scale(1.1) translateY(-5px);}
+}
+
+.candle.blown {
+    animation: none;
+    opacity: 0.3;
+}
+
+#blowCandlesBtn {
+    margin-top: 40px;
+    padding: 15px 40px;
+    font-size: 18px;
+    background-color: #ffd700;
+    color: #1a1a1a;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+}
+
+#blowCandlesBtn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
+}
+
+#blowCandlesBtn:active {
+    transform: scale(0.95);
+}
+
+#blowCandlesBtn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* HALAMAN UCAPAN UTAMA */
+#messagePage {
+    display: none;
+    padding: 40px 20px;
+    min-height: 100vh;
+    animation: fadeIn 0.8s ease;
+}
+
+.greeting-name {
+    font-size: 48px;
+    color: #ffd700;
+    margin: 40px 0 20px 0;
+    animation: slideDown 0.8s ease;
+}
+
+.romantic-message {
+    background: rgba(255, 215, 0, 0.1);
+    border-left: 5px solid #ffd700;
+    padding: 30px 20px;
+    border-radius: 15px;
+    margin: 30px auto;
+    max-width: 600px;
+    font-size: 18px;
+    line-height: 2;
+    color: #e8d5b7;
+    animation: slideUp 0.8s ease 0.3s both;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.message-sender {
+    text-align: right;
+    margin-top: 30px;
+    font-size: 18px;
+    color: #ffd700;
+    font-style: italic;
+    animation: fadeIn 0.8s ease 0.6s both;
+}
+
+#saveLetterBtn {
+    margin-top: 40px;
+    padding: 15px 40px;
+    font-size: 18px;
+    background-color: #ffd700;
+    color: #1a1a1a;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+    animation: fadeIn 0.8s ease 0.8s both;
+}
+
+#saveLetterBtn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
+}
+
+#saveLetterBtn:active {
+    transform: scale(0.95);
+}
+
+/* HALAMAN PENUTUP */
+#closingPage {
+    display: none;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: linear-gradient(135deg, #1a1a1a, #4a3728);
+}
+
+.closing-heart {
+    font-size: 100px;
+    animation: heartBeat 1.5s infinite;
+}
+
+@keyframes heartBeat {
+    0% {transform: scale(1);}
+    25% {transform: scale(1.3);}
+    50% {transform: scale(1);}
+    75% {transform: scale(1.2);}
+    100% {transform: scale(1);}
+}
+
+.closing-text {
+    font-size: 40px;
+    margin-top: 30px;
+    color: #ffd700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+/* FLOATING HEARTS */
+.floating-hearts {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.heart-float {
+    position: absolute;
+    font-size: 30px;
+    opacity: 0.8;
+    animation: floatUp 4s ease-in forwards;
+}
+
+@keyframes floatUp {
+    to {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* SCROLL HINT */
+.scroll-hint {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 20px;
+    animation: bounce 2s infinite;
+}
+
+h1 {
+    color: #ffd700;
+    font-size: 50px;
+}
+
+h2 {
+    color: #ffd700;
+    font-size: 40px;
+}
+
+.heart {
+    font-size: 40px;
+    animation: heartBeat 1.5s infinite;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HALAMAN KADO -->
+<div id="giftPage">
+    <h2>🎁 Ada hadiah buat kamu Pentil❤️</h2>
+    <div class="gift" onclick="openGift()">🎁</div>
+    <p>Klik kado ini ya sayang ❤️</p>
+</div>
+
+<!-- HALAMAN KEMBANG API -->
+<div id="fireworksPage">
+    <div class="floating-hearts" id="fireworksContainer"></div>
+</div>
+
+<!-- HALAMAN HAPPY BIRTHDAY -->
+<div id="happyBirthdayPage">
+    <div id="happyBirthdayText">Happy Birthday Pentil ❤️</div>
+</div>
+
+<!-- HALAMAN FOTO KENANGAN -->
+<div id="memoriesPage">
+    <h2>Foto Kanjeng Ratu 💕</h2>
+    <div class="memories-container" id="memoriesContainer">
+        <div class="memory-item">
+            <img src="til01.jpeg" alt="Kenangan 1" class="memory-img" onerror="this.style.display='none'">
+            <p class="memory-text">💫</p>
+        </div>
+        <div class="memory-item">
+            <img src="til02.jpeg" alt="Kenangan 2" class="memory-img" onerror="this.style.display='none'">
+            <p class="memory-text">💛</p>
+        </div>
+        <div class="memory-item">
+            <img src="til16.jpeg" alt="Kenangan 3" class="memory-img" onerror="this.style.display='none'">
+            <p class="memory-text">✨</p>
+        </div>
+        <div class="memory-item">
+            <img src="til17.jpeg" alt="Kenangan 4" class="memory-img" onerror="this.style.display='none'">
+            <p class="memory-text">🌟</p>
+        </div>
+        <div class="memory-item">
+            <img src="til06.jpeg" alt="Kenangan 5" class="memory-img" onerror="this.style.display='none'">
+            <p class="memory-text">🌟</p>
+        </div>
+        <div class="memory-item">
+            <img src="til14.jpeg" alt="Kenangan 6" class="memory-img" onerror="this.style.display='none'">
+            <p class="memory-text">🌟</p>
+        </div>
+        <div class="memory-item">
+            <img src="til15.jpeg" alt="Kenangan 7" class="memory-img" onerror="this.style.display='none'">
+            <p class="memory-text">🌟</p>
+        </div>
+        <div class="memory-item">
+            <img src="til10.jpeg" alt="Kenangan 8" class="memory-img" onerror="this.style.display='none'">
+            <p class="memory-text">🌟</p>
+        </div>
+        <div class="memory-item">
+            <img src="til11.jpeg" alt="Kenangan 9" class="memory-img" id="til11" onerror="this.style.display='none'">
+            <p class="memory-text">🌟</p>
+        </div>
+        <div class="memory-item">
+            <img src="til05.jpeg" alt="Kenangan 10" class="memory-img" onerror="this.style.display='none'">
+            <p class="memory-text">Bersama kamu adalah impian yang menjadi kenyataan  💖</p>
+        </div>
+    </div>
+</div>
+
+<!-- HALAMAN MAKE A WISH -->
+<div id="wishPage">
+    <h2>Make A Wish 🌟</h2>
+    <div class="cake-container">
+        <div class="candles" id="candlesContainer">
+            <div class="candle">🕯️</div>
+            <div class="candle">🕯️</div>
+            <div class="candle">🕯️</div>
+        </div>
+        <div class="cake">🎂</div>
+    </div>
+    <button id="blowCandlesBtn" onclick="blowCandles()">Tiup Lilin 💨</button>
+</div>
+
+<!-- HALAMAN UCAPAN -->
+<div id="messagePage">
+    <div class="greeting-name">Hai Ti Sayang ❤️</div>
+    <div class="romantic-message">
+        Selamat ulang tahun sayangku Ti / Pentil 💕<br><br>
+
+        Semoga kamu selalu sehat, bahagia,
+        dan semua impian kamu tercapai ✨<br><br>
+
+        Terima kasih sudah hadir di hidup aku,
+        kamu adalah hadiah terindah buat aku 🎁❤️<br><br>
+
+        Aku sayang kamu hari ini, besok,
+        dan selamanya 💖<br><br>
+
+        Dari hati yang paling dalam, terima kasih
+        untuk setiap detik yang aku habiskan bersama kamu 🌹
+    </div>
+    <div class="message-sender">Dengan cinta, Reza 💙</div>
+    <button id="saveLetterBtn" onclick="saveLetter()">Simpan Surat ❤️</button>
+</div>
+
+<!-- HALAMAN PENUTUP -->
+<div id="closingPage">
+    <div class="closing-heart">💕</div>
+    <div class="closing-text">Terima kasih sudah membuka hadiah ini 💛</div>
+    <div class="closing-heart">💖</div>
+</div>
+
+<audio id="music" loop>
+<source src="hbd.mp3 " type="audio/mp3">
+</audio>
+
+<audio id="fireworksSound">
+<source src="https://assets.mixkit.co/active_storage/sfx/2000/2000-preview.mp3" type="audio/mp3">
+</audio>
+
+<audio id="yeySound">
+<source src="tepuk.mp3" type="audio/mp3">
+</audio>
+
+<script>
+let currentPage = 0;
+const pages = [
+    'giftPage',
+    'fireworksPage',
+    'happyBirthdayPage',
+    'memoriesPage',
+    'wishPage',
+    'messagePage',
+    'closingPage'
+];
+
+function openGift() {
+    document.getElementById("giftPage").style.display = "none";
+    document.getElementById("music").play();
+    document.getElementById("fireworksSound").play();
+    
+    // Buat kembang api
+    createFireworks();
+    
+    // Tampilkan halaman kembang api
+    setTimeout(() => {
+        document.getElementById("fireworksPage").style.display = "flex";
+    }, 100);
+    
+    // Tampilkan happy birthday
+    setTimeout(() => {
+        document.getElementById("fireworksPage").style.display = "none";
+        document.getElementById("happyBirthdayPage").style.display = "flex";
+    }, 2000);
+    
+    // Ke halaman memories
+    setTimeout(() => {
+        document.getElementById("happyBirthdayPage").style.display = "none";
+        document.getElementById("memoriesPage").style.display = "block";
+        addScrollContinueButton();
+    }, 5000);
+}
+
+function createFireworks() {
+    // Confetti explosion
+    confetti({
+        particleCount: 200,
+        spread: 120,
+        origin: { y: 0.6 }
+    });
+
+    setTimeout(() => {
+        confetti({
+            particleCount: 150,
+            spread: 100,
+            origin: { y: 0.7 }
+        });
+    }, 300);
+
+    setTimeout(() => {
+        confetti({
+            particleCount: 100,
+            spread: 80,
+            origin: { y: 0.5 }
+        });
+    }, 600);
+
+    // Floating hearts
+    const container = document.getElementById('fireworksContainer');
+    for (let i = 0; i < 20; i++) {
+        setTimeout(() => {
+            const heart = document.createElement('div');
+            heart.className = 'heart-float';
+            heart.innerHTML = '💖';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.top = '100vh';
+            container.appendChild(heart);
+            
+            setTimeout(() => heart.remove(), 4000);
+        }, i * 100);
+    }
+}
+
+function autoScroll(pageId) {
+    const page = document.getElementById(pageId);
+    const duration = 10000; // 10 detik untuk scroll semua memori
+    const container = page.querySelector('.memories-container');
+    
+    if (container) {
+        const scrollHeight = container.scrollHeight;
+        const startTime = Date.now();
+        
+        function scroll() {
+            const elapsed = Date.now() - startTime;
+            const progress = elapsed / duration;
+            
+            if (progress < 1) {
+                window.scrollBy(0, (scrollHeight / duration) * 16);
+                requestAnimationFrame(scroll);
+            }
+        }
+        
+        scroll();
+    }
+}
+
+function blowCandles() {
+    const btn = document.getElementById('blowCandlesBtn');
+    const candles = document.querySelectorAll('.candle');
+    
+    btn.disabled = true;
+    btn.textContent = 'Lilinnya sudah ditiup! 💨';
+    
+    // Putar suara yey
+    const yeySound = document.getElementById('yeySound');
+    yeySound.currentTime = 0;
+    yeySound.play();
+    
+    // Efek tiup dengan smoke
+    candles.forEach(candle => {
+        candle.classList.add('blown');
+    });
+
+    // Konfeti kecil
+    confetti({
+        particleCount: 100,
+        spread: 60,
+        origin: { y: 0.3 }
+    });
+
+    // Ke halaman ucapan
+    setTimeout(() => {
+        document.getElementById("wishPage").style.display = "none";
+        document.getElementById("messagePage").style.display = "block";
+        createFloatingHearts();
+    }, 1500);
+}
+
+function createFloatingHearts() {
+    const container = document.body;
+    for (let i = 0; i < 15; i++) {
+        setTimeout(() => {
+            const heart = document.createElement('div');
+            heart.className = 'heart-float';
+            heart.innerHTML = '💕';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.top = window.innerHeight + 'px';
+            heart.style.zIndex = 2;
+            container.appendChild(heart);
+            
+            setTimeout(() => heart.remove(), 4000);
+        }, i * 150);
+    }
+}
+
+function saveLetter() {
+    const btn = document.getElementById('saveLetterBtn');
+    btn.disabled = true;
+    btn.textContent = 'Surat Tersimpan ✅';
+
+    // Transisi ke halaman penutup
+    setTimeout(() => {
+        document.getElementById("messagePage").style.display = "none";
+        document.getElementById("closingPage").style.display = "flex";
+        createRomanticAnimation();
+    }, 1000);
+}
+
+function addScrollContinueButton() {
+    const memoriesPage = document.getElementById('memoriesPage');
+    const button = document.createElement('button');
+    button.textContent = 'Lanjut ke Tiup Lilin 👉';
+    button.style.marginTop = '40px';
+    button.style.padding = '15px 40px';
+    button.style.fontSize = '18px';
+    button.style.backgroundColor = '#ffd700';
+    button.style.color = '#1a1a1a';
+    button.style.border = 'none';
+    button.style.borderRadius = '50px';
+    button.style.cursor = 'pointer';
+    button.style.fontWeight = 'bold';
+    button.style.transition = 'all 0.3s ease';
+    button.style.boxShadow = '0 5px 15px rgba(255, 215, 0, 0.3)';
+    
+    button.onmouseover = () => {
+        button.style.transform = 'scale(1.05)';
+        button.style.boxShadow = '0 8px 25px rgba(255, 215, 0, 0.5)';
+    };
+    
+    button.onmouseout = () => {
+        button.style.transform = 'scale(1)';
+        button.style.boxShadow = '0 5px 15px rgba(255, 215, 0, 0.3)';
+    };
+    
+    button.onclick = () => {
+        document.getElementById("memoriesPage").style.display = "none";
+        document.getElementById("wishPage").style.display = "flex";
+    };
+    
+    const container = memoriesPage.querySelector('.memories-container');
+    if (container) {
+        container.parentNode.insertBefore(button, container.nextSibling);
+    }
+}
+function createRomanticAnimation() {
+    const container = document.getElementById('closingPage');
+    
+    // Membuat banyak hearts
+    for (let i = 0; i < 50; i++) {
+        setTimeout(() => {
+            const heart = document.createElement('div');
+            heart.className = 'heart-float';
+            heart.innerHTML = ['💕', '💖', '💝', '💗'][Math.floor(Math.random() * 4)];
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.top = '100vh';
+            heart.style.fontSize = (20 + Math.random() * 30) + 'px';
+            heart.style.zIndex = 2;
+            container.appendChild(heart);
+            
+            setTimeout(() => heart.remove(), 4500);
+        }, i * 100);
+    }
+
+    // Confetti celebration
+    setTimeout(() => {
+        confetti({
+            particleCount: 200,
+            spread: 120,
+            origin: { y: 0.6 }
+        });
+    }, 500);
+}
+</script>
+
+</body>
+</html>
